@@ -1,0 +1,150 @@
+## statLearn 7.8 R Lab: NON-LINEAR MODELS
+Load ISLR library and attach Wage dataset
+```{r}
+library(ISLR)
+attach(Wage)
+```
+7.8.1 POLYNOMIAL REGRESSION
+First, we will use polynomials, focus on single predictor: age 
+```{r cars}
+fit = lm(wage~poly(age,4), data=Wage)
+summary(fit)
+```
+Usually, we are not interested in the coefficients, but the fitted functions that they produce. 
+
+Next, construct plot of fitted functions, along with SEs of fit. 
+Set plot frame parameters for R
+Get range of ages; use seq to make grid of values for age.
+Generate predictions for fit, create se bands, generate plot.
+Then add linesadd lines for fit model and SEs above, below. 
+
+```{r fig.width=7, fig.height=6}
+agelims = range(age)
+age.grid = seq(from=agelims[1], to=agelims[2])
+preds = predict(fit, newdata=list(age=age.grid), se=TRUE)
+se.bands = cbind(preds$fit+2*preds$se.fit,preds$fit-2*preds$se.fit)
+plot(age, wage, col="darkgrey")
+lines(age.grid, preds$fit, lwd=2, col="blue")
+matlines(age.grid, se.bands, col="blue", lty=2)
+title("Degree-4 Polynomial")
+```
+More direct ways of fitting polynomial in R, using different basis
+Here, “I()” is ‘wrapper’ identity function to protect ‘I(age^2)’
+Coefficients are different than before, but the fit is same. 
+```{r}
+fita = lm(wage~age+I(age^2)+I(age^3)+I(age^4), data=Wage)
+summary(fita)
+plot(fitted(fit), fitted(fita))
+```
+Using orthogonal polynomials this way, we can separately test
+for each coefficient. Looking at summary, we see the linear, quadratic, cubic terms are significant, but not the quartic.
+
+This only works with linear regression, and a single predictor. 
+In general, we test differences between models using ‘anova()’
+with models that are nested one within the other
+```{r}
+fit.a = lm(wage~age,data=Wage)
+fit.b = lm(wage~poly(age,2),data=Wage)
+fit.c = lm(wage~poly(age,3),data=Wage)
+fit.d = lm(wage~poly(age,4),data=Wage)
+anova(fit.a,fit.b,fit.c,fit.d)
+```
+## POLYNOMIAL LOGISTIC REGRESSION
+Fit logistic regression model to binary response variable;
+constructed from 'wage'; code big earners ('>250') as 1, else 0.
+Fit model, make prediction, create matrix of fit, upper, lower SE 
+```{r}
+fit = glm(I(wage>250)~poly(age,3), data=Wage, family=binomial)
+summary(fit)
+preds = predict(fit, list(age=age.grid), se=T)
+se.bands = preds$fit + cbind(fit=0, lower=-2*preds$se.fit, upper=2*preds$se.fit)
+se.bands[1:5,]
+```
+Predict fits on logit scale, but we are usually interested in 
+predictions on probability scale; therefore, to transform we
+apply inverse logit mapping: Markdown interprets TeX expression
+$$p=\frac{e^\eta}{1+e^\eta}.$$
+We can do this simultaneously for all three columns of se.bands
+```{r}
+prob.bands = exp(se.bands) / (1+exp(se.bands))
+matplot(age.grid, prob.bands, col="blue", lwd=c(2,1,1), lty=c(1,2,2), type="l", ylim=c(0,.1))
+points(jitter(age), I(wage>250)/10, pch="|", cex=0.5)
+title("Polynomial Logistic Regression")
+```
+=======================================================
+## R.Lab 7.8.2 SPLINES
+Splines are more flexible than polynomials, but similar idea. 
+Explore cubic splines: setting the number of knots, joints
+```{r}
+library(splines)
+fit = lm(wage~bs(age, knots=c(25, 40, 60)), data=Wage)
+plot(age, wage, col="darkgrey")
+lines(age.grid, predict(fit, list(age=age.grid)), col="darkgreen", lwd=2)
+abline(v=c(25, 40, 60), lty=2, col="darkgreen")
+title("Cubic Polynomial Spline")
+```
+## SMOOTHING SPLINES
+Does not require knot selection, smoothing parameter (lambda), 
+can be specified via the effective degrees of freedom 'df'.
+Here, smoothing spline has df=16, which is reather large; 
+and is a bit wiggly, maybe a little too much in this case
+```{r}
+fit = smooth.spline(age, wage, df=16)
+lines(fit, col="red", lwd=2)
+```
+Alternatively, we can use CROSS-VALIDATION (LOOC) to 
+select smoothing parameter automatically:
+```{r}
+fit = smooth.spline(age, wage, cv=TRUE)
+lines(fit, col="purple", lwd=2)
+fit
+```
+So far, we focused on fitting models with mostly 
+single nonlinear items. 
+===================================================
+
+## GENERALIZED ADDITIVE MODELS (GAM)
+'gam' package makes it easier to work with multiple nonlinear
+terms, knows how to plot these functions and their std errors. 
+Enter wage as response, smoothing splines for age, year, df=4 
+Education is qualitative predictor, dummary variables
+```{r fig.width=10, fig.height=5}
+library(gam)
+gam1 = gam(wage~s(age,df=4)+s(year,df=4)+education, data=Wage)
+par(mfrow=c(1,3))
+plot(gam1, se=T)
+```
+Same procedure with Logistic Regression for qualitative response
+```{r}
+gam.2 = gam(I(wage>250)~s(age,df=4)+s(year,df=4)+education, data=Wage, family=binomial)
+plot(gam.2)
+```
+See if we need a nonlinear term for year by
+comparing two models using anova () (non-paramatric) 
+```{r}
+gam.3 = gam(I(wage>250)~s(age,df=4)+year+education, data=Wage, family=binomial)
+anova(gam.2,gam.3,test="Chisq")
+```
+Nice feature of 'gam' package: it knows how to plot functions
+even for models fit by 'lm' and 'glm'
+Here, using linear model with natural splines on age, year
+```{r fig.width=10, fig.height=5}
+lm.1 = lm(wage~ns(age,df=4)+ns(year,df=4)+education,data=Wage)
+plot.gam(lm.1, se=TRUE)
+```
+
+
+7.7 RData Quiz Question
+```{r}
+par(mfrow=c(1,1))
+load(file='7.R.RData')
+attach('7.R.RData')
+plot(x,y)
+lm.fit = lm(y~x)
+lm.fit
+summary(lm.fit)
+
+lm.fit2 = lm(y~I(1+x)+I(x^2))
+lm.fit2
+summary(lm.fit2)
+```

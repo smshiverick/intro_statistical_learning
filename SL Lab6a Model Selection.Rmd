@@ -1,0 +1,149 @@
+title: "statLearn Lab6(a) Model Selection"
+==========================================
+## R Markdown
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
+
+```{r}
+library(ISLR)
+dim(Hitters)
+names(Hitters)
+summary(Hitters)
+```
+Hitters dataset consists of Baseball stats: Salary as response (Y). 
+We are going to use Hitters features to predict the players' Salary
+First, remove missing values in the dataset:
+```{r}
+sum(is.na(Hitters$Salary))
+Hitters = na.omit(Hitters)
+with(Hitters, sum(is.na(Salary)))
+dim(Hitters)
+```
+## Best Subset Regression
+-------------------------
+Use the 'leaps' package to evauate all the best-subset model of given size.
+For each subset size, there is a star that indicates variable in the model.
+```{r}
+library(leaps)
+regfit.full = regsubsets(Salary~., data=Hitters)
+summary(regfit.full)
+```
+The varbles are not nested, by default up to subsets up to size 8. 
+To get full subsets up to size 19, use the "nvmax="" command:
+```{r}
+regfit.full = regsubsets(Salary~., data=Hitters, nvmax=19)
+reg.summary=summary(regfit.full)
+names(reg.summary)
+```
+Returns information need to select best model (rsq, rss, cp, bic)
+Plot Cp component, estimate of prediction error, against # variables
+
+Model with 10 predictors seems to have the lowest estimated error
+And we can verify this calling which.min() function for Cp
+```{r}
+plot(reg.summary$cp, xlab="Number of Variables", ylab="Cp")
+which.min(reg.summary$cp)
+points(10,reg.summary$cp[10],col="red",cex=2,pch=20)
+```
+plot method for 'regsubsets' object, displays a pattern picture
+with each predictor on X-axis, and values of Cp plotted on Y axis
+Examine Coefficients for regfit, with 10 predictors
+```{r}
+plot(regfit.full,scale="Cp")
+coef(regfit.full,10)
+```
+For printable summary of output in html, click 'Knit HTML' on toolbar
+
+====================================================================
+## 6.5.2 FORWARD AND BACKWARD STEPWISE SELECTION
+------------------------------------------------
+Use the 'regsubsets()' function, but specify: method="forward option
+```{r}
+library(leaps)
+regfit.fwd = regsubsets(Salary~.,data=Hitters,nvmax=19,method="forward")
+summary(regfit.fwd)
+
+plot(regfit.fwd, scale="Cp")
+coef(regfit.fwd, 10)
+```
+Notice from the coefficients, the models are exactly nested
+Examineation of Cp plot, shows which variables are in or out of models
+
+=========================================
+## Model Selection Using a Validation Set
+-----------------------------------------
+Create Training and Validation set, to choose a good model 
+Use slightly different appraoch from that described in the book
+Roughly 2/3 TRAIN and 1/3 TEST, take sample of 180 observations
+
+```{r}
+dim(Hitters)
+set.seed(1)
+train = sample(seq(263), 180, replace=FALSE)
+train
+regfit.fwd = regsubsets(Salary~., data=Hitters[train,], nvmax=19, method="forward")
+```
+Now, make predictions on the observations not used for training. 
+There are 19 models, so we set up some vectors to record the errors
+Bit of work needed here, as no 'predict' method in regsubsets; 
+then fit validation errors on remainder of the data;
+
+Create a vector with 19 slots
+Creat x matrix corresponding to our Validation data set
+Make predictions for each model, loop over the 19 models;
+use coef to extract coefficients, for model id=i (for each size) 
+
+```{r}
+val.errors = rep(NA, 19)
+x.test = model.matrix(Salary~., data=Hitters[-train,])
+for(i in 1:19){
+    coefi = coef(regfit.fwd, id=i)
+    pred = x.test[,names(coefi)]%*%coefi
+    val.errors[i] = mean((Hitters$Salary[-train]-pred)^2)
+}
+plot(sqrt(val.errors), ylab="Root MSE", ylim=c(300,400), pch=19, type="b")
+points(sqrt(regfit.fwd$rss[-1]/180), col="blue", pch=19, type="b")
+legend("topright", legend=c("Training", "Validation"), col=c("blue","black"), pch=19)
+```
+Plot shows minimum TEST error for 5 variables, lower than 10 vars
+Include RSS from TRAIN set, and a legend identifying the two
+
+As expected, training error goes down monotonically, as the 
+model gets bigger, but not so for the validation error
+
+Next, Trevow writes a predict method for regsubsets
+```{r}
+predict.regsubsets = function(object, newdata, id,...){
+    form = as.formula(object$call[[2]])
+    mat = model.matrix(form, newdata)
+    coefi = coef(object, id=i)
+    mat[,names(coefi)]%*%coefi
+}
+```
+---------------------------------------
+## MODEL SELECTION BY CROSS VALIDATION
+---------------------------------------
+Performing 10-fold cross fold validation, set random number seed
+Create folds by sampling numbers 1-10, length of Hitters rows, shuffle
+Create matrix for errors, with 10 rows, 19 columns (subsets)
+
+Go through double loop, through folds, and variables
+train data is for all but those in k
+
+```{r}
+set.seed(4)
+folds = sample(rep(1:10, length=nrow(Hitters)))
+folds
+table(folds)
+cv.errors = matrix(NA, 10, 19)
+for(k in 1:10){
+    best.fit = regsubsets(Salary~., data=Hitters[folds!=k,], nvmax=19, method="forward")
+    for(i in 1:19){
+        pred = predict(best.fit, Hitters[folds==k,], id=i)
+        cv.errors[k,i] = mean( (Hitters$Salary[folds==k])-pred)^2
+    }
+}
+rmse.cv = sqrt(apply(cv.errors, 2, mean))
+plot(rmse.cv, pch=19, type="b")
+```
+Plot of residual MSE against the number of predictors shows the
+model with around 7 predictors seems to have lowest TEST error
