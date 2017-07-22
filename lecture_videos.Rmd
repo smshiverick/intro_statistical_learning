@@ -20,7 +20,7 @@
 *	3.5  Extensions of Linear Model - Lect5e: (downloaded as mp4.) 
 *	3.6  R Lab - Linear Regression in R: https://youtu.be/5ONFqIk3RFg 
 
-### Chapter 4: Classification (Week 3, starts Jan 23)
+### Chapter 4: Classification (Week 3)
 *	4.1  Introduction to Classification Problems – Lect6a: https://youtu.be/sqq21-VIa1c 
 *	4.2  Logistic Regression - Lect6b: https://youtu.be/31Q5FGRnxt4 
 *	4.3  Multivariate Logistic Regression - Lect6c: https://youtu.be/MpX8rVv_u4E 
@@ -33,7 +33,7 @@
 *	4.10 R Lab Discriminant Analysis - LDA and QDA: https://youtu.be/2cl7JiPzkBY 
 *	4.11 R Lab K-Nearest Neighbors - KNN: https://youtu.be/9TVVF7CS3F4 
 
-### Chapter 5: Resampling Methods (Week 4, starts Jan 30)
+### Chapter 5: Resampling Methods (Week 4)
 *	Interview with Brad Ephram – What is the Jackknife? https://youtu.be/6l9V1sINzhE 
 *	5.1  Cross-Validation - Lect7a: https://youtu.be/_2ij6eaaSl0 
 *	5.2  K-fold Cross-Validation - Lect7a: https://youtu.be/nZAM5OXrktY 
@@ -43,7 +43,7 @@
 *	5.6  Resampling in R, Cross Validation – Lect10 R C: https://youtu.be/6dSXlqHAoMk 
 *	5.7  Bootstrap in R – Lecture 10 R D: https://youtu.be/YVSmsWoBKnA 
 
-### Chapter 6: Linear Model Selection and Regularization (Week 5, starts Feb 6)
+### Chapter 6: Linear Model Selection and Regularization (Week 5)
 *	6.1  Introduction and Best-Subset Selection - Lect8a: https://youtu.be/91si52nk3LA 
 *	6.2  Stepwise Selection - Lect8b: https://youtu.be/nLpJd_iKmrE 
 *	6.3  Backward Stepwise Selection - Lect8c: https://youtu.be/NJhMSpI2Uj8 
@@ -59,7 +59,7 @@
 *	6.R Lab3: Forward Subset Selection in R - R mod select C: https://youtu.be/F8MMHCCoALU 
 *	6.R Lab4: Forward Subset Selection in R - R mod select C: https://www.youtube.com/watch?v=1REe3qSotx8 
 
-### Chapter 7: Moving Beyond Linearity (Week 6, starts Feb 13)
+### Chapter 7: Moving Beyond Linearity (Week 6)
 *	7.1  Polynomials and Step Functions - Lect9a: https://youtu.be/gtXQXA7qF3c 
 *	7.2  Piecewise Polynomials and Splines - Lect9b: https://youtu.be/7ZIqzTNB8lk 
 *	7.3  Smoothing Splines - Lect9c: https://youtu.be/mxXHJa1DsWQ 
