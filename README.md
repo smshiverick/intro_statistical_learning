@@ -1,7 +1,7 @@
 ### Humanities/Sciences: StatLearning-SP Statistical Learning
 https://lagunita.stanford.edu/courses/HumanitiesSciences/StatLearning/Winter2016/about
 
-#### Instructors: Trevor Hastie and Rob Tibshirani, Stanford University
+### Trevor Hastie and Rob Tibshirani, Stanford University
 Welcome to Statistical Learning!
 Your learning adventure with Trevor, Rob and their team begins today.
 
