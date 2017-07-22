@@ -1,12 +1,7 @@
-# HumanitiesSciences: StatLearning-SP Statistical Learning
+## Humanities/Sciences: StatLearning-SP Statistical Learning
 https://lagunita.stanford.edu/courses/HumanitiesSciences/StatLearning/Winter2016/about
 
 ### Trevor Hastie and Rob Tibshirani, Stanford University
-
-### Textbook: Introduction to Statistical Learning
-by James, Whitten, Hastie, & Tibshirani (2E, 2009, Springer)
-http://www-bcf.usc.edu/~gareth/ISL/
-
 Welcome to Statistical Learning!
 Your learning adventure with Trevor, Rob and their team begins today.
 
