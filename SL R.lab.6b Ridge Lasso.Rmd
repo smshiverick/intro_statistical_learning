@@ -1,0 +1,156 @@
+## statLearn R LAB.6(b) RIDGE REGRESSION AND LASSO
+===============================================
+First, need to install and load the 'glmnet' package, 
+glmnet does not use model formula language, so we must
+set up an 'x' and 'y' 
+```{r}
+library(ISLR)
+library(glmnet)
+x = model.matrix(Salary~., data=Hitters)
+y = Hitters$Salary
+```
+## Ridge Regression: Shrinkage of Coefficients
+To fit Ridge-Regression model we calling 'glmnet' with 'alpha=0' 
+(see helpfile; to fit Lasso model, alpha is set to 1). 
+'cv.glmnet' function will do cross-validation for us
+```{r}
+fit.ridge = glmnet(x, y, alpha=0)
+plot(fit.ridge, xvar="lambda", label=TRUE)
+```
+Coefficients are plotted as a function of log lambda;
+RR models are penalized by the SumSquares of Coefficients
+controlled by parameter lambda: RSS+lambda*penalty
+Coefficients shrink towards zero, as lambda increases
+
+```{r}
+cv.ridge = cv.glmnet(x, y, alpha=0)
+plot(cv.ridge)
+```
+## The Lasso: does Shrinkage and Variable Selection
+Now, we fit lasso model; using the default 'alpha=1'
+Lasso is similar to RR, but has slightly different penalty  
+uses absolute value of coefficiebts, shrinking some to zero
+```{r}
+fit.lasso = glmnet(x, y, alpha=1)
+plot(fit.lasso, xvar="lambda", label=TRUE)
+plot(fit.lasso, xvar="dev", label=TRUE)
+```
+Plot shows that initially all features are included, and 
+then as lambda increases, only a few features are retained 
+and the coefficients for unrelated features move to zero
+Plot xvar="dev" shows R^2
+
+Use Cross-Validation to get MSE Estimates for lasso model
+```{r}
+cv.lasso = cv.glmnet(x, y, alpha=1)
+plot(cv.lasso)
+coef(cv.lasso)
+```
+Use earlier TRAIN/VALIDATION to select 'lambda' for the lasso:
+It tries to fit 100 values of lambda, and if nothing changes,
+then it stops. Use best lambda and fit to whole data set
+```{r}
+set.seed(1)
+train = sample(seq(263), 180, replace=FALSE)
+lasso.tr = glmnet(x[train,], y[train])
+lasso.tr
+pred = predict(lasso.tr, x[-train,])
+dim(pred)
+
+rmse = sqrt(apply((y[-train]-pred)^2, 2, mean))
+plot(log(lasso.tr$lambda), rmse, type="b", xlab="Log(lambda)")
+lam.best = lasso.tr$lambda[order(rmse)[1]]
+lam.best
+coef(lasso.tr, s=lam.best)
+```
+==========================================================
+## PRINCIPAL COMPONENTS ANALYSIS and PARTIAL LEAST SQUARES
+----------------------------------------------------------
+## PRINCIPAL COMPONENTS REGRESSION
+Install pls library, load Hitters data to predict Salary
+Syntax for pcr() similar to lm(), with additional parameters:
+scale=TRUE for standardizing predictors, and validation="CV" 
+leads pcr() to perform 10-fold Cross Validation error
+```{r}
+library(pls)
+set.seed(2)
+pcr.fit = pcr(Salary~., data=Hitters, scale=TRUE, validation="CV")
+summary(pcr.fit)
+validationplot(pcr.fit,val.type="MSEP")
+```
+CV score is presented for each possible components for M = p
+pcr() reports root MSE, that needs to be squared to get usual MSE
+
+Plot cross validation MSEP scores; smallest when M=16, and the 
+cross validation error is not very different for only M=1
+
+Perform PCR on training set, evaluate its test set performance
+The lowest CV erro occurs when M=7 components are used
+```{r}
+set.seed(1)
+train = sample(1:nrow(x), nrow(x)/2)
+test = (-train)
+y.test = y[test]
+
+pcr.fit = pcr(Salary~., data=Hitters, subset=train, scale=TRUE, validation="CV")
+validationplot(pcr.fit,val.type="MSEP")
+
+pcr.pred = predict(pcr.fit, x[test,], ncomp = 7)
+mean((pcr.pred-y.test)^2)
+```
+Finally, fit the PCR on the full data set, using M=7, 
+the number of components identified by cross validation
+```{r}
+pcr.fit = pcr(y~x, scale=TRUE, ncomp=7)
+summary(pcr.fit)
+```
+
+```{r}
+library(pls)
+set.seed(2)
+pcr.fit=pcr(Salary~., data=Hitters,scale=TRUE,validation="CV")
+summary(pcr.fit)
+validationplot(pcr.fit,val.type="MSEP")
+set.seed(1)
+pcr.fit=pcr(Salary~., data=Hitters,subset=train,scale=TRUE, validation="CV")
+validationplot(pcr.fit,val.type="MSEP")
+pcr.pred=predict(pcr.fit,x[test,],ncomp=7)
+mean((pcr.pred-y.test)^2)
+pcr.fit=pcr(y~x,scale=TRUE,ncomp=7)
+summary(pcr.fit)
+```
+
+
+## PARTIAL LEAST SQUARES REGRESSION
+Implement PLS using plsr() function in pls library; similar syntas as pcr()
+```{r}
+set.seed(1)
+pls.fit = plsr(Salary~., data=Hitters, subset=train, scale=TRUE, validation="CV")
+summary(pls.fit)
+validationplot(pls.fit,val.type="MSEP")
+```
+
+Lowest cross-validation errors occur when M is only 2
+Now, we evaluate the corresponding TEST MSE
+Finally, perform PLS on full data set, using M=2, 
+
+```{r}
+pls.pred = predict(pls.fit, x[test,], ncomp=2)
+mean((pls.pred-y.test)^2)
+
+pls.fit = plsr(Salary~., scale=TRUE, ncomp=2)
+summary(pls.fit)
+```
+
+```{r}
+set.seed(1)
+pls.fit=plsr(Salary~., data=Hitters,subset=train,scale=TRUE, validation="CV")
+summary(pls.fit)
+validationplot(pls.fit,val.type="MSEP")
+pls.pred=predict(pls.fit,x[test,],ncomp=2)
+mean((pls.pred-y.test)^2)
+pls.fit=plsr(Salary~., data=Hitters,scale=TRUE,ncomp=2)
+summary(pls.fit)
+
+
+```
