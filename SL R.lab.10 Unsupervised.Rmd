@@ -1,0 +1,68 @@
+## SL RLab10: UNSUPERVISED LEARNING IN R
+----------------------------------------------------
+### PRINCIPAL COMPONENTS (PCA)
+
+Use the 'USArrests' dataset (in R). Arrests has much higher variance than other variables, and would dominate the principal components. Therefore, we standardize the variables for PCA; prcomp will do that for us if we set "scale=TRUE"
+```{r}
+dimnames(USArrests) 
+apply(USArrests, 2, mean)
+apply(USArrests, 2, var)
+
+pca.out = prcomp(USArrests, scale=TRUE)
+pca.out
+names(pca.out)
+biplot(pca.out, scale=0, cex=.6)
+```
+======================
+### K-MEANS CLUSTERING
+----------------------
+
+K-means works in any dimenion, but is most fun in 2-dim, because we can plot pictures. We generate some data with clusters (100 rows, 2 columns using rnorm function), and then shifting the means of the points around.
+```{r}
+set.seed(101)
+x = matrix(rnorm(100*2), 100, 2)
+xmean = matrix(rnorm(8, sd=4), 4, 2)
+which = sample(1:4, 100, replace=TRUE)
+x = x+xmean[which,]
+plot(x, col=which, pch=19)
+```
+
+We know the 'true' cluster IDs, but we won't tell that to the kmeans algorithm. We tell it to do 15 random starts
+We can print out the result and create a plot, with the cluster assigned points, and the original points created. 
+```{r}
+km.out = kmeans(x, 4, nstart=15)
+km.out
+plot(x, col=km.out$cluster, cex=2, pch=1, lwd=2)
+points(x, col=which, pch=19)
+points(x, col=c(4, 3, 2, 1)[which], pch=19)
+```
+=================================================
+## HIERARCHICAL CLUSTERING
+--------------------------
+Use these same data for hierarchical clustering, which works off a distance matrix; we compute distance of x (100by100), using a call to hclust(), and then plot the data to show the dendrogram of the clustering. 
+
+```{r}
+hc.complete = hclust(dist(x), method="complete")
+hc.complete
+plot(hc.complete)
+```
+There are other clustering methods we can call, for example, 'single-linkage' clustering. Instead of using the largest distance, it uses the smallest distance. Average-linkage takes the average linkage of all pairs of points. 
+```{r}
+hc.single = hclust(dist(x), method="single")
+plot(hc.single)
+hc.average = hclust(dist(x), method="average")
+plot(hc.average)
+```
+Let's compare this withthe actual clusters in the data. We will use the function 'cutree', to cut the tree at level 4. This will produce a vector of numbers from 1 to 4, saying which branch each observation is on. 
+
+You sometimes see prety plots where the leaves of the dendrogram are colored, but is a bit too complicated for this demo. We can use a table to see how well they match. 
+```{r}
+hc.cut = cutree(hc.complete, 4)
+table(hc.cut, which)
+table(hc.cut, km.out$cluster)
+```
+or we can use our group membership as labels for the leaves of the dendrogram:
+```{r}
+plot(hc.complete, labels=which)
+```
+

@@ -1,0 +1,156 @@
+## SL RLab8: DECISION TREE METHODS
+----------------------------------
+### Fitting Classification Trees
+Load tree package and Carseats data
+Create binary response variable: 'High' (high sales),
+add new variable to Carseats using data.frame
+```{r}
+library(tree)
+library(ISLR)
+attach(Carseats)
+hist(Sales)
+High = ifelse(Sales<=9, "No", "Yes")
+Carseats = data.frame(Carseats, High)
+```
+Now, fit a tree to the data, summarize and plot it. 
+Must _exclude_ 'Sales' from right side of forumula
+because the response variable was derived from it
+```{r}
+tree.carseats = tree(High~.-Sales, data=Carseats)
+summary(tree.carseats)
+plot(tree.carseats)
+text(tree.carseats, pretty=0.25)
+```
+For detailed summary of the tree, print it:
+```{r}
+ tree.carseats
+```
+Create TRAIN, TEST sets (250, 150) based on a split of 
+400 observations, grow the tree on Training set, and 
+evaluate its performance on the TEST set
+```{r}
+set.seed(1011)
+train = sample(1:nrow(Carseats), 250)
+tree.carseats = tree(High~.-Sales, Carseats, subset=train)
+plot(tree.carseats); text(tree.carseats, pretty=0.25)
+```
+Next, use this tree to make prediction for fit on TEST set,
+evaluate performance and prediction accuracy in table 
+```{r}
+tree.pred = predict(tree.carseats, Carseats[-train,], type="class")
+with(Carseats[-train,], table(tree.pred, High))
+(95+26)/150
+```
+This bushy tree, grown to full depth has too much variance; use 10-fold Cross Validation to prune by misclassification, 
+and plot CV by size of trees and deviance (error)
+```{r}
+cv.carseats = cv.tree(tree.carseats, FUN=prune.misclass)
+cv.carseats
+plot(cv.carseats)
+```
+Select around 13 trees as best, and prune by these splits;
+Fit the tree on full training dataset, and plot the data.
+```{r}
+prune.carseats = prune.misclass(tree.carseats, best=13)
+plot(prune.carseats); text(prune.carseats, pretty=0.25)
+```
+Evaluate pruned tree on TEST data; similar performance 
+as above, pruning did not affect misclassification errors. 
+However, a simpler tree is easier to interpret. 
+```{r}
+tree.pred = predict(prune.carseats, Carseats[-train,], type="class")
+with(Carseats[-train,], table(tree.pred, High))
+(95+25)/150
+```
+=======================================================
+## RANDOM FORESTS and BOOSTING
+Use trees as building blocks for more complex models. 
+------------------------------
+Random Forests build lots of bushy trees, and then 
+averages them to reduce variance. In the process, it
+decorrelates the trees. 
+
+Load randomForest package and Boston housing data, 
+from 'MASS' package; housing values, other statistics 
+for 506 suburbs of Boston from 1970 census.
+```{r}
+library(randomForest)
+library(MASS)
+set.seed(101)
+dim(Boston)
+train = sample(1:nrow(Boston), 300)
+```
+Fit a random forest and see how well it performs. 
+Use 'medv' as response, median housing value (\$1K dollars)
+```{r}
+rf.boston = randomForest(medv~., data=Boston, subset=train)
+rf.boston
+```
+MSR and % variance explained are based on OOB (out-of-bag)
+estimates, a clever way to get honest error estimates. 
+
+The Model reports 'mtry=4', number of randomly chosen variables at each split. Since $p=13$, we could try all possible values of 'mtry'. We do so (generating 13 times 400 trees), record the results, and make a plot.
+```{r}
+oob.err=double(13)
+test.err=double(13)
+for(mtry in 1:13){
+    fit=randomForest(medv~., data=Boston, subset=train, mtry=mtry, ntree=400)
+    oob.err[mtry]=fit$mse[400]
+    pred = predict(fit, Boston[-train,])
+    test.err[mtry] = with(Boston[-train,], mean((medv-pred)^2))
+    cat(mtry, " ")
+}
+```
+Use matplot to make plot because we have two columns, 
+test.err, oob.err; cbind them together to make two column
+matrix, and make a single plot in matplot, add a legend. 
+```{r}
+matplot(1:mtry,cbind(test.err,oob.err),pch=19,col=c("red", "blue", type="b",ylab="Mean Squared Error"))
+legend("topright", legend=c("OOB", "Test"), pch=19, col=c("red", "blue"))
+```
+Although the test-error curve drops below the OOB curve, these estimates are based on data, and have their own std errors (typically large). Notice the point on the far left indicates a single tree and points with ‘mtry=13’ correspond to bagging. 
+
+-----------------------
+## BOOSTING
+Boosting builds lots of smaller trees; each new tree tries to
+patch up the deficiencies of the current ensemble of trees. 
+Boosting grows smaller, stubbier trees, and goes after bias. 
+
+Import gbm package ("Gradient Boosted Machines", Friedman) 
+Call gbm, "gaussian distribution", 10000 shallow trees, with
+shrinkage parameters=0.01, and interaction depth of 4 splits
+```{r}
+library(MASS)
+library(gbm)
+set.seed(101)
+boost.boston = gbm(medv~., data=Boston[train,], distribution="gaussian", n.trees=10000, shrinkage=0.01, interaction.depth=4)
+summary(boost.boston)
+```
+Relative influence plot shows that Rooms and LStatus are 
+two most influential predictors above all others in model 
+Construct partial dependence plots for top two predictors.
+```{r}
+plot(boost.boston, i="lstat")
+plot(boost.boston, i="rm")
+```
+Make a prediction on the TEST set. With boosting, the number of trees is a tuning parameter; if we have too many we can overfit. Use cross validation to select number of trees, do as exercise.
+
+Calculate test error as function of number of trees, and plot. Create grid of number of trees, run predict function on boosted model, which returns a matrix of predictions on test data. Compute columnwise TEST MSE for each of those
+```{r}
+n.trees = seq(from=100, to=10000, by=100)
+pred.mat = predict(boost.boston, newdata = Boston[-train,], n.trees=n.trees)
+dim(pred.mat)
+b.err = with(Boston[-train,], apply( (pred.mat-medv)^2, 2, mean))
+plot(n.trees, b.err, pch=19, ylab="Mean Squared Error", xlab="Number of Trees", main="Boosting Test Error")
+abline(h=min(test.err), col="red")
+```
+
+
+
+
+
+
+
+
+
+
