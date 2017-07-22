@@ -1,95 +1,95 @@
-## Trevor Hastie & Rob Tibshirani, Standford University
-### based on textbook Introduction to Statistical Learning
+## Course lectures by Trevor Hastie & Rob Tibshirani, Standford University
+### Textbook: Introduction to Statistical Learning
 (by James, Whitten, Hastie, & Tibshirani, 2E, 2009, Springer)
 
 ### Chapters 1-2: Introduction and Overview of Statistical Learning (Week 1: Trevor Hastie)
-•	1.1  Opening Remarks - Lect1/2a: https://youtu.be/2wLfFB_6SKI 
-•	1.2  Examples and Framework - Lect1/2b: https://youtu.be/LvaTokhYnDw 
-•	2.1  Introduction to Regression Models - Lect3 4a: https://youtu.be/WjyuiK5taS8 
-•	2.2  Dimensionality and Structured Models - Lect3 4b: https://youtu.be/UvxHOkYQl8g 
-•	2.3  Model Selection and Bias-Variance Tradeoff - Lect3 4c: https://youtu.be/VusKAosxxyk 
-•	2.4  Classification - Lect3 4d: https://youtu.be/vVj2itVNku4  
-•	2.5  R Lab: Introduction to R - Rstudio v2: https://youtu.be/jwBgGS_4RQA 
-•	Interview with John Chambers: https://youtu.be/jk9S3RTAl38 
+*  1.1  Opening Remarks - Lect1/2a: https://youtu.be/2wLfFB_6SKI 
+*	1.2  Examples and Framework - Lect1/2b: https://youtu.be/LvaTokhYnDw 
+*	2.1  Introduction to Regression Models - Lect3 4a: https://youtu.be/WjyuiK5taS8 
+*	2.2  Dimensionality and Structured Models - Lect3 4b: https://youtu.be/UvxHOkYQl8g 
+*	2.3  Model Selection and Bias-Variance Tradeoff - Lect3 4c: https://youtu.be/VusKAosxxyk 
+*	2.4  Classification - Lect3 4d: https://youtu.be/vVj2itVNku4  
+*	2.5  R Lab: Introduction to R - Rstudio v2: https://youtu.be/jwBgGS_4RQA 
+*	Interview with John Chambers: https://youtu.be/jk9S3RTAl38 
 
 ### Chapter 3: Linear Regression (Week 2: Rob Tibshirani) 
-•	3.1  Simple Linear Regression - Lect5a: https://youtu.be/PsE9UqoWtS4 
-•	3.2  Hypothesis Testing and Confidence Intervals - Lect5b: (downloaded as mp4.)
-•	3.3  Multiple Linear Regression - Lect5c: https://youtu.be/1hbCJyM9ccs 
-•	3.4  Some Important Questions - Lect5d: https://youtu.be/3T6RXmIHbJ4  
-•	3.5  Extensions of Linear Model - Lect5e: (downloaded as mp4.) 
-•	3.6  R Lab - Linear Regression in R: https://youtu.be/5ONFqIk3RFg 
+*	3.1  Simple Linear Regression - Lect5a: https://youtu.be/PsE9UqoWtS4 
+*	3.2  Hypothesis Testing and Confidence Intervals - Lect5b: (downloaded as mp4.)
+*	3.3  Multiple Linear Regression - Lect5c: https://youtu.be/1hbCJyM9ccs 
+*	3.4  Some Important Questions - Lect5d: https://youtu.be/3T6RXmIHbJ4  
+*	3.5  Extensions of Linear Model - Lect5e: (downloaded as mp4.) 
+*	3.6  R Lab - Linear Regression in R: https://youtu.be/5ONFqIk3RFg 
 
 ### Chapter 4: Classification (Week 3, starts Jan 23)
-•	4.1  Introduction to Classification Problems – Lect6a: https://youtu.be/sqq21-VIa1c 
-•	4.2  Logistic Regression - Lect6b: https://youtu.be/31Q5FGRnxt4 
-•	4.3  Multivariate Logistic Regression - Lect6c: https://youtu.be/MpX8rVv_u4E 
-•	4.4  Logistic Regr, Case-Control Sampling, Multiclass - Lect6d: https://youtu.be/GavRXXEHGqU 
-•	4.5  Discriminant Analysis (LDA) - Lect6e: https://youtu.be/RfrGiG1Hm3M 
-•	4.6  Gaussian Discriminant Analysis, One Variable - Lect6f: https://youtu.be/QG0pVJXT6EU 
-•	4.7  Gaussian Discrim Analysis, Many Variables - Lect6g: https://youtu.be/X4VDZDp2vqw 
-•	4.8  Quadratic Discriminant Analysis and Naïve Bayes - Lect6h: https://youtu.be/6FiNGTYAOAA 
-•	4.9  R Lab Classification with GLM: https://youtu.be/TxvEVc8YNlU 
-•	4.10 R Lab Discriminant Analysis - LDA and QDA: https://youtu.be/2cl7JiPzkBY 
-•	4.11 R Lab K-Nearest Neighbors - KNN: https://youtu.be/9TVVF7CS3F4 
+*	4.1  Introduction to Classification Problems – Lect6a: https://youtu.be/sqq21-VIa1c 
+*	4.2  Logistic Regression - Lect6b: https://youtu.be/31Q5FGRnxt4 
+*	4.3  Multivariate Logistic Regression - Lect6c: https://youtu.be/MpX8rVv_u4E 
+*	4.4  Logistic Regr, Case-Control Sampling, Multiclass - Lect6d: https://youtu.be/GavRXXEHGqU 
+*	4.5  Discriminant Analysis (LDA) - Lect6e: https://youtu.be/RfrGiG1Hm3M 
+*	4.6  Gaussian Discriminant Analysis, One Variable - Lect6f: https://youtu.be/QG0pVJXT6EU 
+*	4.7  Gaussian Discrim Analysis, Many Variables - Lect6g: https://youtu.be/X4VDZDp2vqw 
+*	4.8  Quadratic Discriminant Analysis and Naïve Bayes - Lect6h: https://youtu.be/6FiNGTYAOAA 
+*	4.9  R Lab Classification with GLM: https://youtu.be/TxvEVc8YNlU 
+*	4.10 R Lab Discriminant Analysis - LDA and QDA: https://youtu.be/2cl7JiPzkBY 
+*	4.11 R Lab K-Nearest Neighbors - KNN: https://youtu.be/9TVVF7CS3F4 
 
 ### Chapter 5: Resampling Methods (Week 4, starts Jan 30)
-•	Interview with Brad Ephram – What is the Jackknife? https://youtu.be/6l9V1sINzhE 
-•	5.1  Cross-Validation - Lect7a: https://youtu.be/_2ij6eaaSl0 
-•	5.2  K-fold Cross-Validation - Lect7a: https://youtu.be/nZAM5OXrktY 
-•	5.3  Cross-Validation: Wrong and Right way - Lect7a: https://youtu.be/S06JpVoNaA0 
-•	5.4  The Bootstrap - Lect7a: https://youtu.be/p4BYWX7PTBM 
-•	5.5  More on the Bootstrap - Lect7a: https://youtu.be/BzHz0J9a6k0 
-•	5.6  Resampling in R, Cross Validation – Lect10 R C: https://youtu.be/6dSXlqHAoMk 
-•	5.7  Bootstrap in R – Lecture 10 R D: https://youtu.be/YVSmsWoBKnA 
+*	Interview with Brad Ephram – What is the Jackknife? https://youtu.be/6l9V1sINzhE 
+*	5.1  Cross-Validation - Lect7a: https://youtu.be/_2ij6eaaSl0 
+*	5.2  K-fold Cross-Validation - Lect7a: https://youtu.be/nZAM5OXrktY 
+*	5.3  Cross-Validation: Wrong and Right way - Lect7a: https://youtu.be/S06JpVoNaA0 
+*	5.4  The Bootstrap - Lect7a: https://youtu.be/p4BYWX7PTBM 
+*	5.5  More on the Bootstrap - Lect7a: https://youtu.be/BzHz0J9a6k0 
+*	5.6  Resampling in R, Cross Validation – Lect10 R C: https://youtu.be/6dSXlqHAoMk 
+*	5.7  Bootstrap in R – Lecture 10 R D: https://youtu.be/YVSmsWoBKnA 
 
 ### Chapter 6: Linear Model Selection and Regularization (Week 5, starts Feb 6)
-•	6.1  Introduction and Best-Subset Selection - Lect8a: https://youtu.be/91si52nk3LA 
-•	6.2  Stepwise Selection - Lect8b: https://youtu.be/nLpJd_iKmrE 
-•	6.3  Backward Stepwise Selection - Lect8c: https://youtu.be/NJhMSpI2Uj8 
-•	6.4  Estimating Test Error - Lect8d: https://youtu.be/LkifE44myLc 
-•	6.5  Validation and Cross-Validation - Lect8e: https://youtu.be/3p9JNaJCOb4 
-•	6.6  Shrinkage methods and Ridge Regression- Lect8g: https://youtu.be/cSKzqb0EKS0 
-•	6.7  The Lasso - Lect8h: https://youtu.be/A5I1G1MfUmA 
-•	6.8  Tuning Parameter Selection - Lect8i: https://youtu.be/xMKVUstjXBE 
-•	6.9  Dimension Reduction Methods - Lect8j: https://youtu.be/QlyROnAjnEk 
-•	6.10 Principal Components Regression and Partial Least Square- Lect8k:
-•	6.R Lab1: Model Selection in R - R mod select A: https://youtu.be/3kwdDGnV8MM 
-•	6.R Lab2: Forward Subset Selection in R - R mod select B: https://youtu.be/mv-vdysZIb4 
-•	6.R Lab3: Forward Subset Selection in R - R mod select C: https://youtu.be/F8MMHCCoALU 
-•	6.R Lab4: Forward Subset Selection in R - R mod select C: https://www.youtube.com/watch?v=1REe3qSotx8 
+*	6.1  Introduction and Best-Subset Selection - Lect8a: https://youtu.be/91si52nk3LA 
+*	6.2  Stepwise Selection - Lect8b: https://youtu.be/nLpJd_iKmrE 
+*	6.3  Backward Stepwise Selection - Lect8c: https://youtu.be/NJhMSpI2Uj8 
+*	6.4  Estimating Test Error - Lect8d: https://youtu.be/LkifE44myLc 
+*	6.5  Validation and Cross-Validation - Lect8e: https://youtu.be/3p9JNaJCOb4 
+*	6.6  Shrinkage methods and Ridge Regression- Lect8g: https://youtu.be/cSKzqb0EKS0 
+*	6.7  The Lasso - Lect8h: https://youtu.be/A5I1G1MfUmA 
+*	6.8  Tuning Parameter Selection - Lect8i: https://youtu.be/xMKVUstjXBE 
+*	6.9  Dimension Reduction Methods - Lect8j: https://youtu.be/QlyROnAjnEk 
+*	6.10 Principal Components Regression and Partial Least Square- Lect8k:
+*	6.R Lab1: Model Selection in R - R mod select A: https://youtu.be/3kwdDGnV8MM 
+*	6.R Lab2: Forward Subset Selection in R - R mod select B: https://youtu.be/mv-vdysZIb4 
+*	6.R Lab3: Forward Subset Selection in R - R mod select C: https://youtu.be/F8MMHCCoALU 
+*	6.R Lab4: Forward Subset Selection in R - R mod select C: https://www.youtube.com/watch?v=1REe3qSotx8 
 
 ### Chapter 7: Moving Beyond Linearity (Week 6, starts Feb 13)
-•	7.1  Polynomials and Step Functions - Lect9a: https://youtu.be/gtXQXA7qF3c 
-•	7.2  Piecewise Polynomials and Splines - Lect9b: https://youtu.be/7ZIqzTNB8lk 
-•	7.3  Smoothing Splines - Lect9c: https://youtu.be/mxXHJa1DsWQ 
-•	7.4  Generalized Additive Models; Local Regression - Lect9d: https://youtu.be/N2hBXqPiegQ 
-•	7.R  Lab1: Non-Linear Functions in R – Lect10A: https://youtu.be/uQBnDGu6TYU 
-•	7.R  Lab2: Non-Linear Models: Splines - Lect10B: https://youtu.be/DCn83aXXuHc 
+*	7.1  Polynomials and Step Functions - Lect9a: https://youtu.be/gtXQXA7qF3c 
+*	7.2  Piecewise Polynomials and Splines - Lect9b: https://youtu.be/7ZIqzTNB8lk 
+*	7.3  Smoothing Splines - Lect9c: https://youtu.be/mxXHJa1DsWQ 
+*	7.4  Generalized Additive Models; Local Regression - Lect9d: https://youtu.be/N2hBXqPiegQ 
+*	7.R  Lab1: Non-Linear Functions in R – Lect10A: https://youtu.be/uQBnDGu6TYU 
+*	7.R  Lab2: Non-Linear Models: Splines - Lect10B: https://youtu.be/DCn83aXXuHc 
 
 ### Chapter 8: Tree-based Methods (Week 7)
-•	8.1  Tree Based Methods - Lect10a: https://youtu.be/6ENTbK3yQUQ  
-•	8.2  More Details on Tress - Lect10b: https://youtu.be/GfPR7Xhdokc 
-•	8.3  Classification Tress - Lect10c: https://youtu.be/hPEJoITBbQ4  
-•	8.4  Bagging and Random Forests - Lect10d: https://youtu.be/lq_xzBRIWm4  
-•	8.5  Boosting - Lect10e: https://youtu.be/U3MdBNysk9w 
-•	8.R  Lab1 Trees-Based Methods in R - Lect11A: https://youtu.be/0wZUXtvAtDc   
-•	8.R  Lab2 Trees, Random Forests, and Boosting in R - Lect10B: https://youtu.be/IY7oWGXb77o   
+*	8.1  Tree Based Methods - Lect10a: https://youtu.be/6ENTbK3yQUQ  
+*	8.2  More Details on Tress - Lect10b: https://youtu.be/GfPR7Xhdokc 
+*	8.3  Classification Tress - Lect10c: https://youtu.be/hPEJoITBbQ4  
+*	8.4  Bagging and Random Forests - Lect10d: https://youtu.be/lq_xzBRIWm4  
+*	8.5  Boosting - Lect10e: https://youtu.be/U3MdBNysk9w 
+*	8.R  Lab1 Trees-Based Methods in R - Lect11A: https://youtu.be/0wZUXtvAtDc   
+*	8.R  Lab2 Trees, Random Forests, and Boosting in R - Lect10B: https://youtu.be/IY7oWGXb77o   
 
 ### Chapter 9: Support Vector Machines (Week 8)
-•	9.1  Optimal Separating Hyperplanes - Lect11a: https://youtu.be/QpbynqiTCsY  
-•	9.2  Support Vector Classifier - Lect11b: https://youtu.be/xKsTsGE7KpI 
-•	9.3  Feature Expansion and the SVM - Lect11c:  https://youtu.be/dm32QvCW7wE 
-•	9.4  Example and Comparison with Logistic Regression - Lect11d: https://youtu.be/mI18GD4_ysE  
-•	9.R  Lab1: SVMs in R - LectRA: https://youtu.be/qhyyufR0930  
-•	9.R  Lab2: SVMs in R - LectRB: https://youtu.be/L3n2VF7yKkk 
+*	9.1  Optimal Separating Hyperplanes - Lect11a: https://youtu.be/QpbynqiTCsY  
+*	9.2  Support Vector Classifier - Lect11b: https://youtu.be/xKsTsGE7KpI 
+*	9.3  Feature Expansion and the SVM - Lect11c:  https://youtu.be/dm32QvCW7wE 
+*	9.4  Example and Comparison with Logistic Regression - Lect11d: https://youtu.be/mI18GD4_ysE  
+*	9.R  Lab1: SVMs in R - LectRA: https://youtu.be/qhyyufR0930  
+*	9.R  Lab2: SVMs in R - LectRB: https://youtu.be/L3n2VF7yKkk 
 
 ### Chapter 10: Unsupervised Learning (Week 9)
-•	10.1  Principal Components - Lect12a: https://youtu.be/ipyxSYXgzjQ 
-•	10.2  Higher Order Principal Components - Lect12b: https://youtu.be/dbuSGWCgdzw 
-•	10.3  k-mean Clustering - Lect12c: https://youtu.be/aIybuNt9ps4 
-•	10.4  Hierarchical Clustering - Lect12d: https://youtu.be/Tuuc9Y06tAc 
-•	10.5  Breast Cancer Examples - Lect12e: https://youtu.be/yUJcTpWNY_o 
-•	10.R Lab1 Unsupervised Learning in R (PCA) - Lect12ULA: https://youtu.be/lFHISDj_4EQ 
-•	10.R Lab2 K-means Clustering- Lect12ULB:  https://youtu.be/YDubYJsZ9iM 
-•	10.R Lab3 Hierarchical Clustering- Lect12ULC: https://youtu.be/4u3zvtfqb7w 
+*	10.1  Principal Components - Lect12a: https://youtu.be/ipyxSYXgzjQ 
+*	10.2  Higher Order Principal Components - Lect12b: https://youtu.be/dbuSGWCgdzw 
+*	10.3  k-mean Clustering - Lect12c: https://youtu.be/aIybuNt9ps4 
+*	10.4  Hierarchical Clustering - Lect12d: https://youtu.be/Tuuc9Y06tAc 
+*	10.5  Breast Cancer Examples - Lect12e: https://youtu.be/yUJcTpWNY_o 
+*	10.R Lab1 Unsupervised Learning in R (PCA) - Lect12ULA: https://youtu.be/lFHISDj_4EQ 
+*	10.R Lab2 K-means Clustering- Lect12ULB:  https://youtu.be/YDubYJsZ9iM 
+*	10.R Lab3 Hierarchical Clustering- Lect12ULC: https://youtu.be/4u3zvtfqb7w 
