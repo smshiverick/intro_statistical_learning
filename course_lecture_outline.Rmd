@@ -1,4 +1,4 @@
-## Course lectures by Trevor Hastie & Rob Tibshirani, Standford University
+## Course lectures by Trevor Hastie and Rob Tibshirani, Standford University
 ### Textbook: Introduction to Statistical Learning
 (by James, Whitten, Hastie, & Tibshirani, 2E, 2009, Springer)
 
